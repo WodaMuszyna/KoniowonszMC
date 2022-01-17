@@ -1,0 +1,9 @@
+name: Koniowonsz
+author: WodaMuszyna
+version: 1.0
+main: xyz.wodamuszyna.koniowonsz.Main
+commands:
+  koniowonsz:
+    aliases: [kw]
+  lootbox:
+  dajlootboxy:

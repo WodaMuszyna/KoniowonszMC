@@ -1,0 +1,510 @@
+lootboxy:
+  ==: LootboxConfig
+
+  broadcastLootbox: '&c{NICK} &6otworzyl lootboxa!'
+  wylosowales: '&7Wylosowales {NAZWA}&7!'
+
+  # w tickach
+  opoznienie: 20
+  nazwaGui: 'Lootboxy'
+  lootbox:
+    ==: org.bukkit.inventory.ItemStack
+    type: ENDER_CHEST
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: '§8>> §9§lLootbox §8<<'
+      lore:
+        - '§cPostaw, aby cos wylosowac!'
+        - '§cCzekaja rozne nagrody! :)'
+  mocFajerwerki: 2
+  efekty:
+    - ==: Firework
+      flicker: true
+      trail: true
+      colors:
+        - ==: Color
+          RED: 0
+          BLUE: 0
+          GREEN: 255
+      fade-colors:
+        - ==: Color
+          RED: 0
+          BLUE: 0
+          GREEN: 0
+      type: CREEPER
+    - ==: Firework
+      flicker: false
+      trail: false
+      colors:
+        - ==: Color
+          RED: 0
+          BLUE: 0
+          GREEN: 255
+      fade-colors: []
+      type: BALL
+
+  # {LOOTBOXY} zamieniane jest na pandor/pandory/pandore w zaleznosci od ilosci
+  broadcastLootboxy: |
+
+    §8§m--------- §o§6§lNASCraft§8§m---------
+    §6§lCaly serwer otrzymal §c§l{ILE} §9§l{LOOTBOXY}§6§l!
+  # zmienne moga byc tylko w lores!
+  # {ILE}/{DO_ILU} - stopien prawdopodobienstwa
+  # {PROCENT} - liczba typu 50 (bez znaku %)
+  # np.: Procent: {PROCENT}% wyswietli Procent: 50%
+  losy:
+    - ==: Los
+      komendy:
+        - give {NICK} diamond 64
+      nagroda: §b§lDiamenty
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §d§lDiamenty §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} 265 64
+      nagroda: §7Zelazo
+      prawdopodobienstwo: 9
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §7§lZelazo §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} 266 64
+      nagroda: §6Zloto
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §6§lZloto §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} 388 64
+      nagroda: §aSzmaragdy
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: EMERALD
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §a§lSzmaragdy §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} coal 64
+      nagroda: §8Wegiel
+      prawdopodobienstwo: 11
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: COAL
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §8§lWegiel §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} 17 64
+      nagroda: §6Drewno
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: LOG
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §6§lDrewno §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} bookshelf 64
+      nagroda: §6Biblioteczki
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: BOOKSHELF
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §6§lBiblioteczki §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} cobblestone 576
+      nagroda: §7Bruk
+      prawdopodobienstwo: 11
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: COBBLESTONE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §7§lBruk §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_leggings 1 0 {ench:[{id:0,lvl:4},{id:34,lvl:3}]}
+      nagroda: §3§lSpodnie 4§8§l/§3§l3
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_LEGGINGS
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            PROTECTION_ENVIRONMENTAL: 4
+            DURABILITY: 3
+          display-name: §8>> §9§lSpodnie 4/3 §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - eco give {NICK} 10000
+      nagroda: §aKasa
+      prawdopodobienstwo: 9
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_BLOCK
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §a§lKasa §8<<
+          lore:
+            - '§c5000$!'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_boots 1 0 {ench:[{id:0,lvl:4},{id:34,lvl:3}]}
+      nagroda: §3§lButy 4§8§l/§3§l3
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_BOOTS
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            PROTECTION_ENVIRONMENTAL: 4
+            DURABILITY: 3
+          display-name: §8>> §c§lbuty 4/3 §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - burn {NICK} 20
+      nagroda: §cPodpalenie
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: BLAZE_POWDER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §c§lPodpalenie §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - kit magkilof1 {NICK}
+      nagroda: §3§lMagiczny kilof
+      prawdopodobienstwo: 9
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_PICKAXE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 8
+            DURABILITY: 3
+            LOOT_BONUS_BLOCKS: 3
+          display-name: "§3§lMagiczny kilof"
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - effect {NICK} confusion 60 10
+      nagroda: §cOslabienie
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: POTION
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §c§lOslabienie §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - kit magkilof2 {NICK}
+      nagroda: §3§lMagiczny kilof II
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_PICKAXE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 10
+            DURABILITY: 3
+            LOOT_BONUS_BLOCKS: 3
+          display-name: "§3§lMagiczny kilof II"
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} 52 1
+      nagroda: §4MobSpawner!
+      prawdopodobienstwo: 5
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: MOB_SPAWNER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §4§lMobSpawner §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - spawnmob zombie:diamondarmor 5 {NICK}
+      nagroda: §2Zombiaki
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: SKULL_ITEM
+        damage: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §8>> §2§lZombie §8<<
+          lore:
+            - '§cWokol Ciebie respia sie Zombiaki!'
+    - ==: Los
+      komendy:
+        - spawnmob creeper 5 {NICK}
+      nagroda: §2§lCreepery
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: SKULL_ITEM
+        damage: 3
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 5
+          display-name: §8>> §2§lCReepery §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:enchanted_book 1 0 {ench:[{id:32,lvl:5}]}
+      nagroda: §a§lMagiczna Ksiazka
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: ENCHANTED_BOOK
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 5
+          display-name: §8>> §2§lMagiczna ksiazka §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:enchanted_book 1 0 {ench:[{id:35,lvl:3}]}
+      nagroda: §a§lMagiczna Ksiazka
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: ENCHANTED_BOOK
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            LOOT_BONUS_MOBS: 3
+          display-name: §8>> §2§lMagiczna ksiazka §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_chestplate 1 0 {ench:[{id:0,lvl:4},{id:34,lvl:3}]}
+      nagroda: §3§lKlata 4§8§l/§3§l3
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_CHESTPLATE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            PROTECTION_ENVIRONMENTAL: 4
+            DURABILITY: 3
+          display-name: §8>> §2§lCreeper §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_pickaxe 1 0 {ench:[{id:34,lvl:3},{id:32,lvl:5},{id:35,lvl:3}]}
+      nagroda: §3§lKilof 5§8§l/§3§l3§8§l/§3§l3
+      prawdopodobienstwo: 10
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_PICKAXE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 5
+            DURABILITY: 3
+            LOOT_BONUS_BLOCKS: 3
+          display-name: §8>> §2§lKilof 5/3/3 §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} beacon 1
+      nagroda: §3§lBeacon
+      prawdopodobienstwo: 7
+      ikona:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: BEACON
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: "§3§lBeacon"
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - kit kilof2 {NICK}
+      nagroda: "§a§lCiezki kilof nieodmiennosci"
+      prawdopodobienstwo: 7
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_PICKAXE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 5
+            DURABILITY: 300
+            SILK_TOUCH: 1
+          display-name: "§a§lCiezki kilof nieodmiennosci"
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - kit kilof1 {NICK}
+      nagroda: "§a§lCiezki kilof pomyslnosci"
+      prawdopodobienstwo: 7
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_PICKAXE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DIG_SPEED: 5
+            DURABILITY: 300
+            LOOT_BONUS_BLOCKS: 3
+          display-name: "§a§lCiezki kilof pomyslnosci"
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_sword 1 0 {ench:[{id:16,lvl:5},{id:20,lvl:2}]}
+      nagroda: §3§lMiecz 5§8§l/§3§l2
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_SWORD
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            DAMAGE_ALL: 5
+            FIRE_ASPECT: 2
+          display-name: §8>> §2§lMiecz 5/2 §8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:diamond_helmet 1 0 {ench:[{id:0,lvl:4},{id:34,lvl:3}]}
+      nagroda: §3§lHelm 4§8§l/§3§l3
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_HELMET
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            PROTECTION_ENVIRONMENTAL: 4
+            DURABILITY: 3
+          display-name: §8>> §2§lHelm 4/3§8<<
+          lore:
+            - '§c{PROCENT}%'
+    - ==: Los
+      komendy:
+        - give {NICK} minecraft:enchanted_book 1 0 {ench:[{id:33,lvl:1}]}
+      nagroda: §a§lMagiczna Ksiazka
+      prawdopodobienstwo: 8
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: ENCHANTED_BOOK
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          enchants:
+            SILK_TOUCH: 1
+          display-name: §8>> §2§lMagiczna ksiazka §8<<
+          lore:
+            - '§c{PROCENT}%'
+
+
+    - ==: Los
+      komendy:
+      nagroda: §7exploit
+      prawdopodobienstwo: 0
+      ikona:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6§lInformacja§7:'
+          lore:
+            - '§9Puszki Pandory §7zakupisz na stronie§8: §cSKLEP-MC.PL'
+            - '§7Otwierajac §9Pandore §7musisz miec miejsce w ekwipunku!'
