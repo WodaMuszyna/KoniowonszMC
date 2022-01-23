@@ -1,14 +1,9 @@
 package xyz.wodamuszyna.koniowonsz.bukkit.manager;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import xyz.wodamuszyna.koniowonsz.Main;
-import xyz.wodamuszyna.koniowonsz.Utils;
-import xyz.wodamuszyna.koniowonsz.bukkit.config.LootboxConfig;
 
 import java.util.*;
 
@@ -16,7 +11,6 @@ public class LootboxManager {
     public final Random R = new Random();
     private static final String[] JEZYK = { "lootboxa", "lootboxy", "lootboxow", "lootboxa", "lootboxy", "lootboxow" };
     public LootboxManager config;
-    public Inventory gui;
 
     public String odmien(int ilosc, int offset) {
         if (ilosc == 0) {
@@ -76,37 +70,9 @@ public class LootboxManager {
 
     public void onDisable(){
         for(Player p : Bukkit.getOnlinePlayers()){
-            if(p.getOpenInventory() != null && p.getOpenInventory().getTopInventory() == gui){
+            if(p.getOpenInventory() != null){
                 p.closeInventory();
             }
-        }
-    }
-
-    public void load(){
-        Object[] o = Main.getInstance().lootboxConfig.losy.toArray();
-        gui = Main.getInstance().getServer().createInventory(null, (o.length + 8) / 9 * 9, Utils.fixColor(Main.getInstance().lootboxConfig.nazwaGui));
-        for(int i=0; i < o.length; i++){
-            Object l = o[i];
-            LootboxConfig.Los los = (LootboxConfig.Los) l;
-            if(los.ikona == null){
-                return;
-            }
-            ItemStack is = los.ikona.clone();
-            if (is.getItemMeta() != null && is.getItemMeta().getLore() != null) {
-                ItemMeta im = is.getItemMeta();
-                List<String> lores = im.getLore();
-                ArrayList<String> lores_new = new ArrayList<String>();
-                int nwd = nwd(los.prawdopodobienstwo, Main.getInstance().sumaWag);
-                for (String s : lores) {
-                    lores_new.add(Utils.fixColor(s.replace("{ILE}", Integer.toString(los.prawdopodobienstwo / nwd))
-                            .replace("{DO_ILU}", Integer.toString(Main.getInstance().sumaWag / nwd))
-                            .replace("{PROCENT}", Integer.toString(los.prawdopodobienstwo * 100 / Main.getInstance().sumaWag))));
-                }
-                im.setDisplayName(Utils.fixColor(im.getDisplayName()));
-                im.setLore(lores_new);
-                is.setItemMeta(im);
-            }
-            gui.setItem(i, is);
         }
     }
 
@@ -119,10 +85,10 @@ public class LootboxManager {
         return a;
     }
 
-    public void give(Player p, int ile) {
-        ItemStack pandora = Main.getInstance().lootboxConfig.lootbox.clone();
-        pandora.setAmount(ile);
-        Collection<ItemStack> itemki = p.getInventory().addItem(new ItemStack[] { pandora }).values();
+    public void give(Player p, String typ, int ile) {
+        ItemStack lootbox = Main.getInstance().lootboxy.get(typ).lootbox.clone();
+        lootbox.setAmount(ile);
+        Collection<ItemStack> itemki = p.getInventory().addItem(new ItemStack[] { lootbox }).values();
         for (ItemStack i : itemki) {
             p.getWorld().dropItemNaturally(p.getLocation(), i);
         }

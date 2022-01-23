@@ -19,28 +19,28 @@ public class InventoryListener implements Listener {
         if(e.getCurrentItem() == null){
             return;
         }
-        if (Main.getLootboxManager().gui.equals(e.getClickedInventory())) {
+        if (Main.getInstance().inventories.contains(e.getClickedInventory())) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void inventoryClick(InventoryDragEvent e) {
-        if (Main.getLootboxManager().gui.equals(e.getInventory())) {
+        if (Main.getInstance().inventories.contains(e.getInventory())) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void inventoryInteract(InventoryInteractEvent e) {
-        if (Main.getLootboxManager().gui.equals(e.getInventory())) {
+        if (Main.getInstance().inventories.contains(e.getInventory())) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void inventoryMoveItem(InventoryMoveItemEvent e) {
-        if (Main.getLootboxManager().gui.equals(e.getSource()) || Main.getLootboxManager().gui.equals(e.getDestination())) {
+        if (Main.getInstance().inventories.contains(e.getSource()) || Main.getInstance().inventories.contains(e.getDestination())) {
             e.setCancelled(true);
         }
     }

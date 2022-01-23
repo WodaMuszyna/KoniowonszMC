@@ -13,37 +13,42 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import xyz.wodamuszyna.koniowonsz.Main;
 import xyz.wodamuszyna.koniowonsz.Utils;
+import xyz.wodamuszyna.koniowonsz.bukkit.config.LootboxConfig;
 import xyz.wodamuszyna.koniowonsz.bukkit.runnables.LosujLootbox;
+
+import java.util.Map;
 
 
 public class BlockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent e) {
-        if (e.getItemInHand().getType().equals(Main.getInstance().lootboxConfig.lootbox.getType()) && e.getItemInHand().getItemMeta().equals(Main.getInstance().lootboxConfig.lootbox.getItemMeta())) {
-            e.setCancelled(true);
-            Player p = e.getPlayer();
-            ItemStack inHand = p.getInventory().getItemInMainHand();
-            if (inHand.getAmount() > 1) {
-                inHand.setAmount(inHand.getAmount() - 1);
-            } else {
-                p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-            }
-            if (Main.getInstance().lootboxConfig.losowanie != null) {
-                p.sendMessage(Utils.fixColor(Main.getInstance().lootboxConfig.losowanie));
-            }
-            if (Main.getInstance().lootboxConfig.broadcastLootbox != null) {
-                for (Player pl : Bukkit.getOnlinePlayers()) {
-                    pl.sendMessage(Utils.fixColor(Main.getInstance().lootboxConfig.broadcastLootbox.replace("{NICK}", p.getName())));
+        for(Map.Entry<String, LootboxConfig> m : Main.getInstance().lootboxy.entrySet()) {
+            if (e.getItemInHand().getType().equals(m.getValue().lootbox.getType()) && e.getItemInHand().getItemMeta().equals(m.getValue().lootbox.getItemMeta())) {
+                e.setCancelled(true);
+                Player p = e.getPlayer();
+                ItemStack inHand = p.getInventory().getItemInMainHand();
+                if (inHand.getAmount() > 1) {
+                    inHand.setAmount(inHand.getAmount() - 1);
+                } else {
+                    p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                 }
+                if (m.getValue().losowanie != null) {
+                    p.sendMessage(Utils.fixColor(m.getValue().losowanie));
+                }
+                if (m.getValue().broadcastLootbox != null) {
+                    for (Player pl : Bukkit.getOnlinePlayers()) {
+                        pl.sendMessage(Utils.fixColor(m.getValue().broadcastLootbox.replace("{NICK}", p.getName())));
+                    }
+                }
+                Location loc = e.getBlock().getLocation();
+                Firework firework = (Firework) loc.getWorld().spawn(loc, Firework.class);
+                FireworkMeta data = firework.getFireworkMeta();
+                data.setPower(m.getValue().mocFajerwerki);
+                data.addEffects(m.getValue().efekty);
+                firework.setFireworkMeta(data);
+                Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(e.getPlayer(), m.getValue(), false),
+                        m.getValue().opoznienie);
             }
-            Location loc = e.getBlock().getLocation();
-            Firework firework = (Firework)loc.getWorld().spawn(loc, Firework.class);
-            FireworkMeta data = firework.getFireworkMeta();
-            data.setPower(Main.getInstance().lootboxConfig.mocFajerwerki);
-            data.addEffects(Main.getInstance().lootboxConfig.efekty);
-            firework.setFireworkMeta(data);
-            Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(e.getPlayer()),
-                    Main.getInstance().lootboxConfig.opoznienie);
         }
     }
 }

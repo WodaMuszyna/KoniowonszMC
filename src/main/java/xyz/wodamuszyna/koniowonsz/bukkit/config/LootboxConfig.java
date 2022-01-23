@@ -20,12 +20,14 @@ public class LootboxConfig implements ConfigurationSerializable {
     public String wylosowales;
     public String losowanie;
     public int opoznienie;
+    public int waga;
     public List<Los> losy;
+    public ItemStack lootbox;
     public String nazwaGui;
     public List<FireworkEffect> efekty;
-    public ItemStack lootbox;
     public int mocFajerwerki;
     public String broadcastLootboxy;
+    public static LootboxConfig deserialize(Map<String, Object> m) { return new LootboxConfig(m); }
 
     public LootboxConfig(Map<String, Object> m) {
         this.broadcastLootbox = ChatColor.RED + "{NICK} " + ChatColor.GOLD + "otworzyl puszke pandory!";
@@ -77,10 +79,6 @@ public class LootboxConfig implements ConfigurationSerializable {
     }
 
 
-    public static LootboxConfig deserialize(Map<String, Object> m) { return new LootboxConfig(m); }
-
-
-
     public Map<String, Object> serialize() { return serialize(this); }
 
     @SerializableAs("Los")
@@ -91,6 +89,7 @@ public class LootboxConfig implements ConfigurationSerializable {
         public List<String> komendy;
         public String nagroda;
         public ItemStack ikona;
+        public static Los deserialize(Map<String, Object> m) { return new Los(m); }
 
         public Los(Map<String, Object> m) {
             this.prawdopodobienstwo = 10;
@@ -99,11 +98,6 @@ public class LootboxConfig implements ConfigurationSerializable {
             LootboxConfig.deserialize(m, this);
         }
 
-
         public Map<String, Object> serialize() { return LootboxConfig.serialize(this); }
-
-
-
-        public static Los deserialize(Map<String, Object> m) { return new Los(m); }
     }
 }
