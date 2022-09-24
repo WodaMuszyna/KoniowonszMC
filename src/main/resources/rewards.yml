@@ -1,0 +1,23 @@
+rewards:
+  ==: RewardsConfig
+
+  odebranoNagrode: '&aPomyslnie odebrales nagrode! Dzisiejsza nagroda to: {NAGRODA}'
+  nieMoznaOdebrac: '&cBlad! Nastepna nagrode mozesz odebrac za {CZAS}'
+
+  nagrody:
+    - ==: Reward
+      nagroda: '&2Grass block'
+      komendy:
+        - 'give {NICK} grass 1'
+    - ==: Reward
+      nagroda: '&8Stone'
+      komendy:
+        - 'give {NICK} stone 1'
+    - ==: Reward
+      nagroda: '&7Iron ingot'
+      komendy:
+        - 'give {NICK} iron_ingot 1'
+    - ==: Reward
+      nagroda: '&6Gold ingot'
+      komendy:
+        - 'give {NICK} gold_ingot 1'

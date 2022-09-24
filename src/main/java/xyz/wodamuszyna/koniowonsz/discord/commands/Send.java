@@ -2,10 +2,9 @@ package xyz.wodamuszyna.koniowonsz.discord.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import xyz.wodamuszyna.koniowonsz.discord.Config;
 import xyz.wodamuszyna.koniowonsz.discord.GuildListener;
@@ -35,8 +34,7 @@ public class Send extends Command {
                 //TextChannel c = channels.get(rand.nextInt(channels.size()));
                 TextChannel c = g.getTextChannelById("913416650978623509");
                 if(c != null){
-                    Message m = new MessageBuilder("siemka").build();
-                    c.sendMessage(m).queue(msg -> GuildListener.setMessageId(msg.getId()));
+                    c.sendMessage("siemka").queue(msg -> GuildListener.setMessageId(msg.getId()));
                 }
             }
         }

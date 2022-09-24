@@ -23,7 +23,6 @@ import xyz.wodamuszyna.koniowonsz.Main;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +46,7 @@ public class Run extends Command {
             Matcher matcher = pattern.matcher(msg.getContentRaw());
             if(matcher.find()){
                 if(matcher.group(1) == null){
-                    e.getChannel().sendMessage("Please specify language").complete().delete().queueAfter(5, TimeUnit.SECONDS);
+                    e.reply("Please specify language");
                     return;
                 }
                 try {
@@ -71,7 +70,7 @@ public class Run extends Command {
                     HttpResponse response = httpClient.execute(postMethod);
                     JsonObject out = new Gson().fromJson(EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8), JsonObject.class);
                     logger.debug(out.toString());
-                    e.getChannel().sendMessage("Your output: \n```\n"+out.get("output").getAsString()+"\n```").complete();
+                    e.reply("Your output: \n```\n"+out.get("output").getAsString()+"\n```");
                 } catch (IOException malformedURLException) {
                     logger.debug(malformedURLException.getMessage());
                     malformedURLException.printStackTrace();

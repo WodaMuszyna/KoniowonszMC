@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import xyz.wodamuszyna.koniowonsz.Main;
-import xyz.wodamuszyna.koniowonsz.Utils;
+import xyz.wodamuszyna.koniowonsz.utils.Utils;
 import xyz.wodamuszyna.koniowonsz.bukkit.runnables.LosujLootbox;
 
 import java.util.Locale;
@@ -21,7 +21,7 @@ public class DajLootboxy implements CommandExecutor {
                 s.sendMessage("Uzycie: /dajlootboxy <nick lub *> <typ/random> <ile>");
                 return true;
             }
-            if(!a[1].equalsIgnoreCase("random") && Main.getInstance().lootboxy.get(a[1]) == null){
+            if(!a[1].equalsIgnoreCase("random") && Main.getLootboxManager().getLootbox(a[1]) == null){
                 s.sendMessage(String.format("Lootbox %s nie istnieje", a[1]));
                 return true;
             }
@@ -36,7 +36,7 @@ public class DajLootboxy implements CommandExecutor {
                 if(a[1].equalsIgnoreCase("random")){
                     for(Player pl : Bukkit.getOnlinePlayers()){
                         for(int i=0; i<ilosc; i++) {
-                            Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(pl, Main.getInstance().lootboxy.get(a[1]), true),
+                            Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(pl, Main.getLootboxManager().getLootbox(a[1]), true),
                                     20);
                         }
                     }
@@ -55,7 +55,7 @@ public class DajLootboxy implements CommandExecutor {
                 if(p != null){
                     if(a[1].equalsIgnoreCase("random")){
                         for(int i=0; i<ilosc; i++) {
-                            Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(p, Main.getInstance().lootboxy.get(a[1]), true),
+                            Main.getInstance().getServer().getScheduler().runTaskLater(Main.getInstance(), new LosujLootbox(p, Main.getLootboxManager().getLootbox(a[1]), true),
                                     20);
                         }
                     }else {

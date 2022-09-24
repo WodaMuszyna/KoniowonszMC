@@ -4,13 +4,36 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import xyz.wodamuszyna.koniowonsz.Main;
+import xyz.wodamuszyna.koniowonsz.bukkit.objects.Lootbox;
 
 import java.util.*;
 
 public class LootboxManager {
     public final Random R = new Random();
     private static final String[] JEZYK = { "lootboxa", "lootboxy", "lootboxow", "lootboxa", "lootboxy", "lootboxow" };
+    public static List<Lootbox> lootboxy = new ArrayList<>();
     public LootboxManager config;
+
+    public static void addLootbox(Lootbox l){
+        if(!lootboxy.contains(l)){
+            lootboxy.add(l);
+        }
+    }
+
+    public List<Lootbox> getLootboxy(){
+        return new ArrayList<>(lootboxy);
+    }
+
+    public Lootbox getLootbox(String name){
+        for(Lootbox l : lootboxy){
+            if(l.getName().equalsIgnoreCase(name)) return l;
+        }
+        return null;
+    }
+
+    public void removeLootbox(Lootbox l){
+        lootboxy.remove(l);
+    }
 
     public String odmien(int ilosc, int offset) {
         if (ilosc == 0) {
@@ -86,7 +109,7 @@ public class LootboxManager {
     }
 
     public void give(Player p, String typ, int ile) {
-        ItemStack lootbox = Main.getInstance().lootboxy.get(typ).lootbox.clone();
+        ItemStack lootbox = Main.getLootboxManager().getLootbox(typ).getConfig().lootbox.clone();
         lootbox.setAmount(ile);
         Collection<ItemStack> itemki = p.getInventory().addItem(new ItemStack[] { lootbox }).values();
         for (ItemStack i : itemki) {

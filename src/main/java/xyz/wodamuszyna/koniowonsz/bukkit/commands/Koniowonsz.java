@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import xyz.wodamuszyna.koniowonsz.Main;
-import xyz.wodamuszyna.koniowonsz.Utils;
+import xyz.wodamuszyna.koniowonsz.utils.Utils;
 
 public class Koniowonsz implements CommandExecutor {
     @Override

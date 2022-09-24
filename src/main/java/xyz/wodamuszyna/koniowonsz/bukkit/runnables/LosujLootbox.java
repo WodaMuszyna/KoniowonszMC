@@ -2,36 +2,35 @@ package xyz.wodamuszyna.koniowonsz.bukkit.runnables;
 
 import org.bukkit.entity.Player;
 import xyz.wodamuszyna.koniowonsz.Main;
-import xyz.wodamuszyna.koniowonsz.Utils;
+import xyz.wodamuszyna.koniowonsz.utils.Utils;
 import xyz.wodamuszyna.koniowonsz.bukkit.config.LootboxConfig;
-
-import java.util.Map;
+import xyz.wodamuszyna.koniowonsz.bukkit.objects.Lootbox;
 
 public class LosujLootbox implements Runnable{
     public Player player;
-    public LootboxConfig config;
+    public Lootbox lootbox;
     public boolean pickingRandomLootbox;
 
-    public LosujLootbox(Player p, LootboxConfig c, boolean pickingRandomLootbox){
+    public LosujLootbox(Player p, Lootbox l, boolean pickingRandomLootbox){
         this.player = p;
-        this.config = c;
+        this.lootbox = l;
         this.pickingRandomLootbox = pickingRandomLootbox;
     }
     public void run() {
         if(pickingRandomLootbox){
             int los = Main.getLootboxManager().R.nextInt(Main.getInstance().wagaLootboxow);
-            for (Map.Entry<String, LootboxConfig> m : Main.getInstance().lootboxy.entrySet()) {
-                if (m.getValue().waga > los) {
-                    Main.getLootboxManager().give(player, m.getKey(), 1);
+            for (Lootbox l : Main.getLootboxManager().getLootboxy()) {
+                if (l.getConfig().waga > los) {
+                    Main.getLootboxManager().give(player, l.getName(), 1);
                     return;
                 }
-                los -= m.getValue().waga;
+                los -= l.getConfig().waga;
             }
         }else {
-            int los = Main.getLootboxManager().R.nextInt(Main.getInstance().wagi.get(config));
-            for (LootboxConfig.Los l : config.losy) {
+            int los = Main.getLootboxManager().R.nextInt(lootbox.getWagi());
+            for (LootboxConfig.Los l : lootbox.getConfig().losy) {
                 if (l.prawdopodobienstwo > los) {
-                    this.player.sendMessage(Utils.fixColor(config.wylosowales.replace("{NAZWA}", l.nagroda)));
+                    this.player.sendMessage(Utils.fixColor(lootbox.getConfig().wylosowales.replace("{NAZWA}", l.nagroda)));
                     for (String komendy : l.komendy) {
                         Main.getInstance().getServer().dispatchCommand(
                                 Main.getInstance().getServer().getConsoleSender(),

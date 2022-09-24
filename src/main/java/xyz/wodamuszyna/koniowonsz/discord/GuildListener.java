@@ -31,7 +31,7 @@ public class GuildListener extends ListenerAdapter {
         if(g != null){
             TextChannel c = g.getTextChannelById("924702832802824192");
             if(e.getMessage().getAuthor().getId().equals("913394985880154152")) return;
-            if(c != null && e.getMessage().getTextChannel().equals(c)) {
+            if(c != null && e.getMessage().getChannel().equals(c)) {
                 TextComponent msg = Component.text("DISCORD ").color(NamedTextColor.DARK_PURPLE)
                         .append(Component.text(e.getMessage().getAuthor().getName(), NamedTextColor.WHITE))
                         .append(Component.text(" >> ", NamedTextColor.DARK_GRAY)).append(Component.text(e.getMessage().getContentDisplay(), NamedTextColor.WHITE));

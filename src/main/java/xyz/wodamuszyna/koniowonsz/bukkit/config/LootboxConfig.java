@@ -6,6 +6,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
+import xyz.wodamuszyna.koniowonsz.utils.ConfigUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -30,56 +31,16 @@ public class LootboxConfig implements ConfigurationSerializable {
     public static LootboxConfig deserialize(Map<String, Object> m) { return new LootboxConfig(m); }
 
     public LootboxConfig(Map<String, Object> m) {
-        this.broadcastLootbox = ChatColor.RED + "{NICK} " + ChatColor.GOLD + "otworzyl puszke pandory!";
+        this.broadcastLootbox = ChatColor.RED + "{NICK} " + ChatColor.GOLD + "otworzyl lootbox!";
         this.wylosowales = ChatColor.GRAY + "Wylosowales {NAZWA}" + ChatColor.GRAY + "!";
         this.losowanie = ChatColor.RED + "Losowanie...";
         this.opoznienie = 20;
-        this.nazwaGui = "Pandory";
+        this.nazwaGui = "Lootboxy";
         this.mocFajerwerki = 2;
-        deserialize(m, this);
+        ConfigUtils.deserialize(m, this);
     }
 
-    public static void deserialize(Map<String, Object> m, Object o) {
-        for (int i=0; i < o.getClass().getFields().length; i++) {
-            Field f = o.getClass().getFields()[i];
-            if (Modifier.isPublic(f.getModifiers()) && !Modifier.isStatic(f.getModifiers()) && !Modifier.isFinal(f.getModifiers()) && m.containsKey(f.getName())) {
-                try {
-                    f.set(o, m.get(f.getName()));
-                }
-                catch (IllegalArgumentException|IllegalAccessException|NullPointerException ex2) {
-                    if (!(ex2 instanceof NullPointerException)) {
-                        ex2.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    public static Map<String, Object> serialize(Object o) {
-        TreeMap<String, Object> m = new TreeMap<String, Object>();
-        for (int i = 0; i < o.getClass().getFields().length; i++) {
-            Field f = o.getClass().getFields()[i];
-            if (Modifier.isPublic(f.getModifiers()) && !Modifier.isStatic(f.getModifiers()) && !Modifier.isFinal(f.getModifiers())) {
-                try {
-                    if (f.getType() == String.class) {
-                        m.put(f.getName(), f.get(o));
-                    } else {
-
-                        m.put(f.getName(), f.get(o));
-                    }
-
-                } catch (IllegalArgumentException|IllegalAccessException|NullPointerException ex2) {
-                    if (!(ex2 instanceof NullPointerException)) {
-                        ex2.printStackTrace();
-                    }
-                }
-            }
-        }
-        return m;
-    }
-
-
-    public Map<String, Object> serialize() { return serialize(this); }
+    public Map<String, Object> serialize() { return ConfigUtils.serialize(this); }
 
     @SerializableAs("Los")
     public static class Los
@@ -93,11 +54,11 @@ public class LootboxConfig implements ConfigurationSerializable {
 
         public Los(Map<String, Object> m) {
             this.prawdopodobienstwo = 10;
-            this.komendy = Arrays.asList(new String[] { "burn {NICK} 20s" });
-            this.nagroda = ChatColor.LIGHT_PURPLE + "diamenty";
-            LootboxConfig.deserialize(m, this);
+            this.komendy = Arrays.asList(new String[] { "give {NICK} stone 1" });
+            this.nagroda = ChatColor.GRAY + "stone";
+            ConfigUtils.deserialize(m, this);
         }
 
-        public Map<String, Object> serialize() { return LootboxConfig.serialize(this); }
+        public Map<String, Object> serialize() { return ConfigUtils.serialize(this); }
     }
 }
